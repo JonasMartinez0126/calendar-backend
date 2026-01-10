@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express");
 const { dbConnection } = require("./database/config");
 const cors = require("cors");
-require("dotenv").config();
+require("dotenv").config({ path: [".env.local", ".env"] });
 
 // crear el servidor de express
 const app = express();
@@ -25,7 +25,7 @@ app.use("/api/auth", require("./routes/auth"));
 // CRUD de eventos
 app.use("/api/events", require("./routes/events"));
 
-app.use("*", (req, res) => {
+app.use("/*splat", (req, res) => {
   res.sendFile(path.join(__dirname, "public/index.html"));
 });
 
